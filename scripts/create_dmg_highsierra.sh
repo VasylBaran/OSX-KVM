@@ -32,6 +32,8 @@ fi
 # Borrrowed from multiple internet sources
 hdiutil create -o "$dmg_path" -size 5600m -layout GPTSPUD -fs HFS+J
 hdiutil attach "$dmg_path" -noverify -mountpoint /Volumes/install_build
+# Otherwise you'll get "PID Killed: 9 sudo "$in_path/Contents/Resources/createinstallmedia" --volume /Volumes/install_build --nointeraction"
+codesign -s - -f "$in_path/Contents/Resources/createinstallmedia"
 sudo "$in_path/Contents/Resources/createinstallmedia" --volume /Volumes/install_build --nointeraction
 
 # createinstallmedia may leave a bunch of subvolumes still mounted when it exits, so we need to use -force here.
